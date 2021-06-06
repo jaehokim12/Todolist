@@ -1,23 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { useState, useEffect } from 'react';
+import List from './List';
 function App() {
+  const [Todo, SetTodo] = useState([]);
+  const [newTodo, SetnewTodo] = useState();
+  const [loading, SetLoading] = useState(false);
+  const inputdata = (e) => {
+    SetnewTodo(e.target.value);
+  };
+
+  const add = () => {
+    SetTodo([...Todo, newTodo]);
+  };
+
+  const fethInitialData = async () => {
+    SetLoading(true);
+    const response = await fetch('http://localhost:8080/todo');
+    const InitialData = await response.json();
+    SetTodo(InitialData);
+    SetLoading(false);
+  };
+  useEffect(() => {
+    fethInitialData();
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input type="text" name="" onChange={inputdata} />
+      <button type="button" onClick={add}>
+        추가
+      </button>
+      <List Todo={Todo} loading={loading} />
     </div>
   );
 }
