@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import List from './List';
 import useFetch from './useFetch';
+import Form from './Form';
 
 function App() {
   const [Todo, SetTodo] = useState([]);
@@ -32,10 +33,8 @@ function App() {
 
   return (
     <div className="App">
-      <input type="text" name="" onChange={inputdata} />
-      <button type="button" onClick={add}>
-        추가
-      </button>
+      <Form add={add} inputdata={inputdata} />
+
       <List Todo={Todo} loading={loading} changeTodoStatus={changeTodoStatus} />
     </div>
   );
