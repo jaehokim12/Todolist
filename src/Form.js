@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TodoContext } from './App';
 
-function Form(props) {
-  console.log(props);
-  const inputdata = props.inputdata;
-  const add = props.add;
+const Form = () => {
+  const { add, inputdata } = useContext(TodoContext);
+
   return (
     <div>
       <input type="text" name="" onChange={inputdata} />
@@ -12,6 +12,6 @@ function Form(props) {
       </button>
     </div>
   );
-}
+};
 
 export default Form;

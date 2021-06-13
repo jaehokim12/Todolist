@@ -1,8 +1,10 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import List from './List';
 import useFetch from './useFetch';
 import Form from './Form';
+
+export const TodoContext = React.createContext();
 
 function App() {
   const [Todo, SetTodo] = useState([]);
@@ -33,9 +35,15 @@ function App() {
 
   return (
     <div className="App">
-      <Form add={add} inputdata={inputdata} />
+      <TodoContext.Provider value={(Todo, add, inputdata)}>
+        <Form add={add} inputdata={inputdata} />
 
-      <List Todo={Todo} loading={loading} changeTodoStatus={changeTodoStatus} />
+        <List
+          Todo={Todo}
+          loading={loading}
+          changeTodoStatus={changeTodoStatus}
+        />
+      </TodoContext.Provider>
     </div>
   );
 }
